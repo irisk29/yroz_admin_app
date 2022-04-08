@@ -11,17 +11,17 @@ class UsersScreen extends StatefulWidget {
 
 class _UsersScreenState extends State<UsersScreen> {
   final List<User> users = [
-    new User("Tal", "tal@gmail.com", 1),
-    new User("Itay", "itay@gmail.com", 2),
+    new User("Tal", "tal@gmail.com", 1, ""),
+    new User("Itay", "itay@gmail.com", 2, ""),
 //    new User("Itay", "itay@gmail.com", 2),
 //    new User("Itay", "itay@gmail.com", 2),
   ];
   late List<bool> showPurchases = users.map((user) => false).toList();
 
   final List<Purchase> purchases = [
-    new Purchase("tal@gmail.com", "itay@gmail.com", 100),
-    new Purchase("tal@gmail.com", "itay@gmail.com", 200),
-    new Purchase("itay@gmail.com", "tal@gmail.com", 300)
+    new Purchase("tal@gmail.com", "itay@gmail.com", 100, ""),
+    new Purchase("tal@gmail.com", "itay@gmail.com", 200, ""),
+    new Purchase("itay@gmail.com", "tal@gmail.com", 300, "")
   ];
 
   List<Purchase> filterByBuyer(String buyerEmail)  {
