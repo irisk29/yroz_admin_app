@@ -2,57 +2,37 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6ca16ba1-fed2-4ab7-ade5-f612faaf6437" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.flutter-plugins" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/runConfigurations.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/amplify/.config/project-config.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/amplify/backend/api/finalprojectYROZ/cli-inputs.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/amplify/backend/api/finalprojectYROZ/parameters.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/amplify/backend/api/finalprojectYROZ/resolvers/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/amplify/backend/api/finalprojectYROZ/schema.graphql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/amplify/backend/api/finalprojectYROZ/stacks/CustomResources.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/amplify/backend/api/finalprojectYROZ/transform.conf.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/amplify/backend/auth/finalprojectYROZ/cli-inputs.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/amplify/backend/backend-config.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/amplify/backend/storage/s3finalprojectyrozstoragecfd316fa/cli-inputs.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/amplify/backend/tags.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/amplify/backend/types/amplify-dependent-resources-ref.d.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/amplify/cli.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/amplify/team-provider-info.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ios/Podfile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/DataLayer/admin_metrics.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/InternalPaymentGateway/InternalPaymentGateway.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/LogicLayer/admin.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/generated_plugin_registrant.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/models/CartProductModel.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/models/ModelProvider.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/models/OnlineStoreModel.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/models/PhysicalStoreModel.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/models/PurchaseHistoryModel.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/models/ShoppingBagModel.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/models/StoreOwnerModel.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/models/StoreProductModel.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/models/UserModel.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/screens/loading_splash_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/fonts/Montserrat-Black.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/fonts/Montserrat-BlackItalic.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/fonts/Montserrat-Bold.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/fonts/Montserrat-BoldItalic.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/fonts/Montserrat-ExtraBold.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/fonts/Montserrat-ExtraBoldItalic.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/fonts/Montserrat-ExtraLight.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/fonts/Montserrat-ExtraLightItalic.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/fonts/Montserrat-Italic.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/fonts/Montserrat-Light.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/fonts/Montserrat-LightItalic.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/fonts/Montserrat-Medium.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/fonts/Montserrat-MediumItalic.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/fonts/Montserrat-Regular.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/fonts/Montserrat-SemiBold.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/fonts/Montserrat-SemiBoldItalic.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/fonts/Montserrat-Thin.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/fonts/Montserrat-ThinItalic.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/fonts/Roboto-ThinItalic.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ios/Podfile.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/yroz_admin.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/yroz_admin.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/yroz_admin_android.iml" beforeDir="false" afterPath="$PROJECT_DIR$/android/yroz_admin_android.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Flutter/Debug.xcconfig" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Flutter/Debug.xcconfig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Flutter/Release.xcconfig" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Flutter/Release.xcconfig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/global_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/global_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/product.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/DTO/product.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/purchase.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/DTO/purchase.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/stores_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/stores_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/tabs_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/tabs_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/user.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/DTO/user.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/users_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/users_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Podfile" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Podfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner.xcodeproj/project.pbxproj" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner.xcodeproj/project.pbxproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner.xcworkspace/contents.xcworkspacedata" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner.xcworkspace/contents.xcworkspacedata" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner.xcworkspace/xcshareddata/WorkspaceSettings.xcsettings" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner/Info.plist" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/Info.plist" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/LogicLayer/admin.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/LogicLayer/admin.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/global_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/global_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/loading_splash_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/loading_splash_screen.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,6 +41,17 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/lib/DataLayer/admin_metrics.dart" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/ios/Podfile" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/lib/InternalPaymentGateway/InternalPaymentGateway.dart" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/pubspec.yaml" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/lib/LogicLayer/admin.dart" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/.gitignore" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/lib/main.dart" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/ios/Runner/Info.plist" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/lib/screens/loading_splash_screen.dart" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="ProjectId" id="27Yf6kvjSNoWukEpW9cBayjiCaW" />
   <component name="ProjectLevelVcsManager">
@@ -94,7 +85,8 @@
       <option name="presentableId" value="Default" />
       <updated>1649501766815</updated>
       <workItem from="1649501772970" duration="19000" />
-      <workItem from="1649501808866" duration="3805000" />
+      <workItem from="1649501808866" duration="5499000" />
+      <workItem from="1649516342064" duration="1724000" />
     </task>
     <servers />
   </component>
@@ -111,6 +103,7 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />

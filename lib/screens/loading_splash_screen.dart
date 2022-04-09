@@ -7,6 +7,7 @@ import 'package:amplify_storage_s3/amplify_storage_s3.dart';
 import 'package:f_logs/model/flog/flog.dart';
 import 'package:flutter/material.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:yroz_admin/LogicLayer/admin.dart';
 import 'package:yroz_admin/amplifyconfiguration.dart';
 import 'package:yroz_admin/models/ModelProvider.dart';
 import 'package:yroz_admin/screens/tabs_screen.dart';
@@ -59,8 +60,10 @@ class _LoadingSplashScreenState extends State<LoadingSplashScreen>
           stopwatch = new Stopwatch()..start();
         } else if (msg.eventName == 'ready') {
           FLog.info(text: "AWS Amplify is ready");
-          ticker.then((value) =>
-              Navigator.pushReplacementNamed(context, TabsScreen.routeName));
+          ticker.then((value) {
+            Admin();
+            Navigator.pushReplacementNamed(context, TabsScreen.routeName);
+          });
         }
       });
     });

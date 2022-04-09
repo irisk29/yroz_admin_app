@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:yroz_admin/LogicLayer/admin.dart';
 
 class GlobalScreen extends StatelessWidget {
   static const routeName = '/global';
 
-  int registeredUsers = 0;
-  int physicalStores = 0;
-  int onlineStores = 0;
+  int registeredUsers = Admin().getRegisteredUsersAmount();
+  int physicalStores = Admin().getsAmountOfPhysicalStores();
+  int onlineStores = Admin().getsAmountOfOnlineStores();
   double profit = 0.0;
 
   @override
