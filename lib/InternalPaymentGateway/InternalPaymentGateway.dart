@@ -90,8 +90,8 @@ class InternalPaymentGateway {
     };
     var result = await _getRequest(externalPaymentUrl, '/dev/eWallet', body);
     if (result.getTag()) {
-      String token = result.getValue()["balance"];
-      return new Ok(result.getMessage(), token);
+      String balance = result.getValue()["balance"];
+      return new Ok(result.getMessage(), balance);
     }
     return new Failure(result.getMessage());
   }
@@ -115,6 +115,23 @@ class InternalPaymentGateway {
               .map((key, value) => MapEntry(key, value as Object)))
           .toList();
       return new Ok(result.getMessage(), convertedPurchaseHistory);
+    }
+    return new Failure(result.getMessage());
+  }
+
+  Future<ResultInterface<String>> getYrozBalance(
+    DateTime startDate,
+    DateTime endDate,
+  ) async {
+    final DateFormat formatter = DateFormat('dd/MM/yyyy HH:mm:ss');
+    var body = {
+      "startDate": formatter.format(startDate),
+      "endDate": formatter.format(endDate),
+    };
+    var result = await _getRequest(externalPaymentUrl, '/dev/yrozAdmin', body);
+    if (result.getTag()) {
+      String balance = result.getValue()["balance"];
+      return new Ok(result.getMessage(), balance);
     }
     return new Failure(result.getMessage());
   }
