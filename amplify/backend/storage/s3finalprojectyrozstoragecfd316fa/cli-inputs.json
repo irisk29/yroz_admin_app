@@ -1,0 +1,12 @@
+{
+  "resourceName": "s3finalprojectyrozstoragecfd316fa",
+  "bucketName": "final-project-yroz-storage-cfd316fa",
+  "policyUUID": "53a82e13",
+  "storageAccess": "auth",
+  "guestAccess": [],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ]
+}

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:yroz_admin/global_screen.dart';
-import 'package:yroz_admin/stores_screen.dart';
-import 'package:yroz_admin/users_screen.dart';
+import 'package:yroz_admin/screens/global_screen.dart';
+import 'package:yroz_admin/screens/stores_screen.dart';
+import 'package:yroz_admin/screens/users_screen.dart';
 
 class TabsScreen extends StatefulWidget {
   static const routeName = '/tabs';

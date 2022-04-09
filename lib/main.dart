@@ -1,14 +1,32 @@
 import 'package:flutter/material.dart';
-import 'package:yroz_admin/tabs_screen.dart';
-import 'package:yroz_admin/global_screen.dart';
-import 'package:yroz_admin/users_screen.dart';
-import 'package:yroz_admin/stores_screen.dart';
+import 'package:flutter/services.dart';
+import 'package:yroz_admin/screens/loading_splash_screen.dart';
+import 'package:yroz_admin/screens/tabs_screen.dart';
+import 'package:yroz_admin/screens/global_screen.dart';
+import 'package:yroz_admin/screens/users_screen.dart';
+import 'package:yroz_admin/screens/stores_screen.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      FlutterNativeSplash.remove();
+    });
+  }
+
   Map<int, Color> color = {
     50: Color.fromRGBO(243, 90, 106, .1),
     100: Color.fromRGBO(243, 90, 106, .2),
@@ -24,6 +42,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
     return MaterialApp(
         title: 'Admin',
         theme: ThemeData(
@@ -31,8 +53,9 @@ class MyApp extends StatelessWidget {
           accentColor: Colors.purple,
           fontFamily: 'Montserrat',
         ),
-        home: TabsScreen(),
+        home: LoadingSplashScreen(),
         routes: {
+          LoadingSplashScreen.routeName: (ctx) => LoadingSplashScreen(),
           TabsScreen.routeName: (ctx) => TabsScreen(),
           GlobalScreen.routeName: (ctx) => GlobalScreen(),
           UsersScreen.routeName: (ctx) => UsersScreen(),
