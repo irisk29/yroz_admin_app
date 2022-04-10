@@ -119,7 +119,7 @@ class InternalPaymentGateway {
     return new Failure(result.getMessage());
   }
 
-  Future<ResultInterface<String>> getYrozBalance(
+  Future<ResultInterface<double>> getYrozBalance(
     DateTime startDate,
     DateTime endDate,
   ) async {
@@ -130,7 +130,8 @@ class InternalPaymentGateway {
     };
     var result = await _getRequest(externalPaymentUrl, '/dev/yrozAdmin', body);
     if (result.getTag()) {
-      String balance = result.getValue()["balance"];
+      FLog.info(text: "profit: ${result.getValue()}");
+      double balance = result.getValue()["balance"];
       return new Ok(result.getMessage(), balance);
     }
     return new Failure(result.getMessage());
