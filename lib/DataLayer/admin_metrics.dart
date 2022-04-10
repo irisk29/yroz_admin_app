@@ -46,7 +46,7 @@ class AdminMetrics {
 
     stream.listen((QuerySnapshot<OnlineStoreModel> snapshot) {
       this._numOfOnlineStores = snapshot.items.length;
-      FLog.info(text: "Number of physical stores is $_numOfOnlineStores");
+      FLog.info(text: "Number of online stores is $_numOfOnlineStores");
     });
   }
 

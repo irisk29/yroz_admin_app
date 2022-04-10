@@ -131,7 +131,8 @@ class InternalPaymentGateway {
     var result = await _getRequest(externalPaymentUrl, '/dev/yrozAdmin', body);
     if (result.getTag()) {
       FLog.info(text: "profit: ${result.getValue()}");
-      double balance = result.getValue()["balance"];
+      double balance = double.parse(result.getValue()["balance"]);
+      FLog.info(text: "balance: ${balance}");
       return new Ok(result.getMessage(), balance);
     }
     return new Failure(result.getMessage());
