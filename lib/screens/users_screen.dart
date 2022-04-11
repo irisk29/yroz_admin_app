@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:yroz_admin/purchase.dart';
-import 'package:yroz_admin/user.dart';
+import 'package:yroz_admin/DTO/purchase.dart';
+import 'package:yroz_admin/DTO/user.dart';
 
 class UsersScreen extends StatefulWidget {
   static const routeName = '/users';

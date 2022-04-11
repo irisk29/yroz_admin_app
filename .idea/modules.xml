@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/yroz_admin.iml" filepath="$PROJECT_DIR$/.idea/yroz_admin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/android/yroz_admin_android.iml" filepath="$PROJECT_DIR$/android/yroz_admin_android.iml" />
     </modules>
   </component>
 </project>

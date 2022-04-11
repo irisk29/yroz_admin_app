@@ -29,6 +29,14 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  amplify_flutter: ^0.4.2
+  amplify_auth_cognito: ^0.4.2
+  amplify_datastore: ^0.4.2
+  amplify_api: ^0.4.2
+  amplify_storage_s3: ^0.4.2
+  f_logs: ^2.0.0
+  flutter_native_splash: ^2.1.1
+  http: ^0.13.4
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -39,6 +47,9 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
+flutter_native_splash:
+  image: assets/icon/icon.png
+  color: "#ffb3b3"
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
   # activated in the `analysis_options.yaml` file located at the root of your
@@ -58,7 +69,8 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
+  assets:
+    - assets/icon/icon.png
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 
