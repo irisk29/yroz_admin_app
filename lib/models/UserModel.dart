@@ -20,7 +20,7 @@
 // ignore_for_file: public_member_api_docs, file_names, unnecessary_new, prefer_if_null_operators, prefer_const_constructors, slash_for_doc_comments, annotate_overrides, non_constant_identifier_names, unnecessary_string_interpolations, prefer_adjacent_string_concatenation, unnecessary_const, dead_code
 
 import 'ModelProvider.dart';
-import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
+import 'package:amplify_core/amplify_core.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 
@@ -40,6 +40,8 @@ class UserModel extends Model {
   final String? _favoriteStores;
   final bool? _hideStoreOwnerOptions;
   final bool? _isLoggedIn;
+  final TemporalDateTime? _createdAt;
+  final TemporalDateTime? _updatedAt;
   final String? _userModelStoreOwnerModelId;
 
   @override
@@ -54,10 +56,10 @@ class UserModel extends Model {
     try {
       return _email!;
     } catch(e) {
-      throw new DataStoreException(
-          DataStoreExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+      throw new AmplifyCodeGenModelException(
+          AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
           recoverySuggestion:
-            DataStoreExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+            AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
           underlyingException: e.toString()
           );
     }
@@ -67,10 +69,10 @@ class UserModel extends Model {
     try {
       return _name!;
     } catch(e) {
-      throw new DataStoreException(
-          DataStoreExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+      throw new AmplifyCodeGenModelException(
+          AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
           recoverySuggestion:
-            DataStoreExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+            AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
           underlyingException: e.toString()
           );
     }
@@ -104,10 +106,10 @@ class UserModel extends Model {
     try {
       return _hideStoreOwnerOptions!;
     } catch(e) {
-      throw new DataStoreException(
-          DataStoreExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+      throw new AmplifyCodeGenModelException(
+          AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
           recoverySuggestion:
-            DataStoreExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+            AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
           underlyingException: e.toString()
           );
     }
@@ -117,20 +119,28 @@ class UserModel extends Model {
     try {
       return _isLoggedIn!;
     } catch(e) {
-      throw new DataStoreException(
-          DataStoreExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+      throw new AmplifyCodeGenModelException(
+          AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
           recoverySuggestion:
-            DataStoreExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+            AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
           underlyingException: e.toString()
           );
     }
+  }
+  
+  TemporalDateTime? get createdAt {
+    return _createdAt;
+  }
+  
+  TemporalDateTime? get updatedAt {
+    return _updatedAt;
   }
   
   String? get userModelStoreOwnerModelId {
     return _userModelStoreOwnerModelId;
   }
   
-  const UserModel._internal({required this.id, required email, required name, imageUrl, creditCards, eWallet, storeOwnerModel, shoppingBagModels, favoriteStores, required hideStoreOwnerOptions, required isLoggedIn, userModelStoreOwnerModelId}): _email = email, _name = name, _imageUrl = imageUrl, _creditCards = creditCards, _eWallet = eWallet, _storeOwnerModel = storeOwnerModel, _shoppingBagModels = shoppingBagModels, _favoriteStores = favoriteStores, _hideStoreOwnerOptions = hideStoreOwnerOptions, _isLoggedIn = isLoggedIn, _userModelStoreOwnerModelId = userModelStoreOwnerModelId;
+  const UserModel._internal({required this.id, required email, required name, imageUrl, creditCards, eWallet, storeOwnerModel, shoppingBagModels, favoriteStores, required hideStoreOwnerOptions, required isLoggedIn, createdAt, updatedAt, userModelStoreOwnerModelId}): _email = email, _name = name, _imageUrl = imageUrl, _creditCards = creditCards, _eWallet = eWallet, _storeOwnerModel = storeOwnerModel, _shoppingBagModels = shoppingBagModels, _favoriteStores = favoriteStores, _hideStoreOwnerOptions = hideStoreOwnerOptions, _isLoggedIn = isLoggedIn, _createdAt = createdAt, _updatedAt = updatedAt, _userModelStoreOwnerModelId = userModelStoreOwnerModelId;
   
   factory UserModel({String? id, required String email, required String name, String? imageUrl, String? creditCards, String? eWallet, StoreOwnerModel? storeOwnerModel, List<ShoppingBagModel>? shoppingBagModels, String? favoriteStores, required bool hideStoreOwnerOptions, required bool isLoggedIn, String? userModelStoreOwnerModelId}) {
     return UserModel._internal(
@@ -187,6 +197,8 @@ class UserModel extends Model {
     buffer.write("favoriteStores=" + "$_favoriteStores" + ", ");
     buffer.write("hideStoreOwnerOptions=" + (_hideStoreOwnerOptions != null ? _hideStoreOwnerOptions!.toString() : "null") + ", ");
     buffer.write("isLoggedIn=" + (_isLoggedIn != null ? _isLoggedIn!.toString() : "null") + ", ");
+    buffer.write("createdAt=" + (_createdAt != null ? _createdAt!.format() : "null") + ", ");
+    buffer.write("updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null") + ", ");
     buffer.write("userModelStoreOwnerModelId=" + "$_userModelStoreOwnerModelId");
     buffer.write("}");
     
@@ -194,7 +206,7 @@ class UserModel extends Model {
   }
   
   UserModel copyWith({String? id, String? email, String? name, String? imageUrl, String? creditCards, String? eWallet, StoreOwnerModel? storeOwnerModel, List<ShoppingBagModel>? shoppingBagModels, String? favoriteStores, bool? hideStoreOwnerOptions, bool? isLoggedIn, String? userModelStoreOwnerModelId}) {
-    return UserModel(
+    return UserModel._internal(
       id: id ?? this.id,
       email: email ?? this.email,
       name: name ?? this.name,
@@ -228,10 +240,12 @@ class UserModel extends Model {
       _favoriteStores = json['favoriteStores'],
       _hideStoreOwnerOptions = json['hideStoreOwnerOptions'],
       _isLoggedIn = json['isLoggedIn'],
+      _createdAt = json['createdAt'] != null ? TemporalDateTime.fromString(json['createdAt']) : null,
+      _updatedAt = json['updatedAt'] != null ? TemporalDateTime.fromString(json['updatedAt']) : null,
       _userModelStoreOwnerModelId = json['userModelStoreOwnerModelId'];
   
   Map<String, dynamic> toJson() => {
-    'id': id, 'email': _email, 'name': _name, 'imageUrl': _imageUrl, 'creditCards': _creditCards, 'eWallet': _eWallet, 'storeOwnerModel': _storeOwnerModel?.toJson(), 'shoppingBagModels': _shoppingBagModels?.map((ShoppingBagModel? e) => e?.toJson()).toList(), 'favoriteStores': _favoriteStores, 'hideStoreOwnerOptions': _hideStoreOwnerOptions, 'isLoggedIn': _isLoggedIn, 'userModelStoreOwnerModelId': _userModelStoreOwnerModelId
+    'id': id, 'email': _email, 'name': _name, 'imageUrl': _imageUrl, 'creditCards': _creditCards, 'eWallet': _eWallet, 'storeOwnerModel': _storeOwnerModel?.toJson(), 'shoppingBagModels': _shoppingBagModels?.map((ShoppingBagModel? e) => e?.toJson()).toList(), 'favoriteStores': _favoriteStores, 'hideStoreOwnerOptions': _hideStoreOwnerOptions, 'isLoggedIn': _isLoggedIn, 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format(), 'userModelStoreOwnerModelId': _userModelStoreOwnerModelId
   };
 
   static final QueryField ID = QueryField(fieldName: "userModel.id");
@@ -327,6 +341,20 @@ class UserModel extends Model {
       key: UserModel.ISLOGGEDIN,
       isRequired: true,
       ofType: ModelFieldType(ModelFieldTypeEnum.bool)
+    ));
+    
+    modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
+      fieldName: 'createdAt',
+      isRequired: false,
+      isReadOnly: true,
+      ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)
+    ));
+    
+    modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
+      fieldName: 'updatedAt',
+      isRequired: false,
+      isReadOnly: true,
+      ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)
     ));
     
     modelSchemaDefinition.addField(ModelFieldDefinition.field(

@@ -10,15 +10,16 @@ class GlobalScreen extends StatefulWidget {
 }
 
 class _GlobalScreenState extends State<GlobalScreen> {
-  int registeredUsers = Admin().getRegisteredUsersAmount();
-
-  int physicalStores = Admin().getsAmountOfPhysicalStores();
-
-  int onlineStores = Admin().getsAmountOfOnlineStores();
-
+  int registeredUsers = 0;
+  int physicalStores = 0;
+  int onlineStores = 0;
   double profit = 0.0;
 
   Future<double> getCompanyProfit() async{
+    registeredUsers = Admin().getRegisteredUsersAmount();
+    physicalStores = Admin().getsAmountOfPhysicalStores();
+    onlineStores = Admin().getsAmountOfOnlineStores();
+    
     DateTime now = DateTime.now();
     DateTime monthAgo = DateTime(now.year, now.month - 1, now.day);
     double res = await Admin().getCompanyProfit(monthAgo, now);
@@ -58,7 +59,7 @@ class _GlobalScreenState extends State<GlobalScreen> {
                         .apply(fontSizeFactor: 1.2))),
             SizedBox(height: 8),
             FittedBox(
-                child: Text("YROZ Profit: ${snap.data == null ? -1 : snap.data}₪",
+                child: Text("YROZ Profit: ${snap.data == null ? -1 : snap.data}€",
                     style: DefaultTextStyle.of(context)
                         .style
                         .apply(fontSizeFactor: 1.2))),

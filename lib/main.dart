@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:yroz_admin/screens/loading_splash_screen.dart';
+import 'package:yroz_admin/screens/store_purchases_screen.dart';
 import 'package:yroz_admin/screens/tabs_screen.dart';
 import 'package:yroz_admin/screens/global_screen.dart';
+import 'package:yroz_admin/screens/user_purchases_screen.dart';
 import 'package:yroz_admin/screens/users_screen.dart';
 import 'package:yroz_admin/screens/stores_screen.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
@@ -60,6 +62,8 @@ class _MyAppState extends State<MyApp> {
           GlobalScreen.routeName: (ctx) => GlobalScreen(),
           UsersScreen.routeName: (ctx) => UsersScreen(),
           StoresScreen.routeName: (ctx) => StoresScreen(),
+          UserPurchasesScreen.routeName: (ctx) => UserPurchasesScreen(),
+          StorePurchasesScreen.routeName: (ctx) => StorePurchasesScreen(),
         });
   }
 }
