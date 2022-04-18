@@ -2,6 +2,7 @@ import 'package:f_logs/model/flog/flog.dart';
 import 'package:flutter/material.dart';
 import 'package:yroz_admin/LogicLayer/admin.dart';
 import 'package:pie_chart/pie_chart.dart';
+import 'package:yroz_admin/screens/email_analysis_screen.dart';
 
 class GlobalScreen extends StatefulWidget {
   static const routeName = '/global';
@@ -22,10 +23,7 @@ class _GlobalScreenState extends State<GlobalScreen> {
     physicalStores = Admin().getsAmountOfPhysicalStores();
     onlineStores = Admin().getsAmountOfOnlineStores();
 
-    dataMap = {
-      "online stores": onlineStores.toDouble(),
-      "physical stores": physicalStores.toDouble()
-    };
+    dataMap = {"online stores": onlineStores.toDouble(), "physical stores": physicalStores.toDouble()};
 
     DateTime now = DateTime.now();
     DateTime monthAgo = DateTime(now.year, now.month - 1, now.day);
@@ -96,6 +94,19 @@ class _GlobalScreenState extends State<GlobalScreen> {
                   FittedBox(
                       child: Text("YROZ Profit: ${snap.data == null ? -1 : snap.data}€",
                           style: DefaultTextStyle.of(context).style.apply(fontSizeFactor: 1.2))),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+                  FittedBox(
+                    child: ElevatedButton(
+                      child: Text(
+                        'View feedback analysis',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      onPressed: () => Navigator.of(context).pushReplacementNamed(EmailAnalysisScreen.routeName),
+                    ),
+                  ),
                 ],
               ),
             ),
