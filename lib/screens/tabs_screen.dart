@@ -1,5 +1,9 @@
+import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:yroz_admin/LogicLayer/AppUser.dart';
 import 'package:yroz_admin/screens/global_screen.dart';
+import 'package:yroz_admin/screens/login_screen.dart';
 import 'package:yroz_admin/screens/stores_screen.dart';
 import 'package:yroz_admin/screens/users_screen.dart';
 
@@ -29,7 +33,18 @@ class _TabsScreenState extends State<TabsScreen> {
   Widget build(BuildContext context) {
     _pages = [GlobalScreen(), UsersScreen(), StoresScreen()];
     return Scaffold(
-      appBar: AppBar(centerTitle: true, title: Text("Admin")),
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text("Admin"),
+        actions: [
+          IconButton(
+              onPressed: () async {
+                await Provider.of<AppUser>(context, listen: false).signOut();
+                Navigator.of(context).pushReplacementNamed(EmailSignInPage.routeName);
+              },
+              icon: Icon(Icons.logout_rounded))
+        ],
+      ),
       body: _pages[_selectedPageIndex],
       bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,

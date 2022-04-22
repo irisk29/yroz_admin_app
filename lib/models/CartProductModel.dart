@@ -19,7 +19,7 @@
 
 // ignore_for_file: public_member_api_docs, file_names, unnecessary_new, prefer_if_null_operators, prefer_const_constructors, slash_for_doc_comments, annotate_overrides, non_constant_identifier_names, unnecessary_string_interpolations, prefer_adjacent_string_concatenation, unnecessary_const, dead_code
 
-import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
+import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter/foundation.dart';
 
 
@@ -36,6 +36,8 @@ class CartProductModel extends Model {
   final double? _amount;
   final String? _storeProductID;
   final String? _shoppingbagmodelID;
+  final TemporalDateTime? _createdAt;
+  final TemporalDateTime? _updatedAt;
 
   @override
   getInstanceType() => classType;
@@ -49,10 +51,10 @@ class CartProductModel extends Model {
     try {
       return _name!;
     } catch(e) {
-      throw new DataStoreException(
-          DataStoreExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+      throw new AmplifyCodeGenModelException(
+          AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
           recoverySuggestion:
-            DataStoreExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+            AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
           underlyingException: e.toString()
           );
     }
@@ -62,10 +64,10 @@ class CartProductModel extends Model {
     try {
       return _categories!;
     } catch(e) {
-      throw new DataStoreException(
-          DataStoreExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+      throw new AmplifyCodeGenModelException(
+          AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
           recoverySuggestion:
-            DataStoreExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+            AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
           underlyingException: e.toString()
           );
     }
@@ -75,10 +77,10 @@ class CartProductModel extends Model {
     try {
       return _price!;
     } catch(e) {
-      throw new DataStoreException(
-          DataStoreExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+      throw new AmplifyCodeGenModelException(
+          AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
           recoverySuggestion:
-            DataStoreExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+            AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
           underlyingException: e.toString()
           );
     }
@@ -96,10 +98,10 @@ class CartProductModel extends Model {
     try {
       return _amount!;
     } catch(e) {
-      throw new DataStoreException(
-          DataStoreExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+      throw new AmplifyCodeGenModelException(
+          AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
           recoverySuggestion:
-            DataStoreExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+            AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
           underlyingException: e.toString()
           );
     }
@@ -113,16 +115,24 @@ class CartProductModel extends Model {
     try {
       return _shoppingbagmodelID!;
     } catch(e) {
-      throw new DataStoreException(
-          DataStoreExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+      throw new AmplifyCodeGenModelException(
+          AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
           recoverySuggestion:
-            DataStoreExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+            AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
           underlyingException: e.toString()
           );
     }
   }
   
-  const CartProductModel._internal({required this.id, required name, required categories, required price, imageUrl, description, required amount, storeProductID, required shoppingbagmodelID}): _name = name, _categories = categories, _price = price, _imageUrl = imageUrl, _description = description, _amount = amount, _storeProductID = storeProductID, _shoppingbagmodelID = shoppingbagmodelID;
+  TemporalDateTime? get createdAt {
+    return _createdAt;
+  }
+  
+  TemporalDateTime? get updatedAt {
+    return _updatedAt;
+  }
+  
+  const CartProductModel._internal({required this.id, required name, required categories, required price, imageUrl, description, required amount, storeProductID, required shoppingbagmodelID, createdAt, updatedAt}): _name = name, _categories = categories, _price = price, _imageUrl = imageUrl, _description = description, _amount = amount, _storeProductID = storeProductID, _shoppingbagmodelID = shoppingbagmodelID, _createdAt = createdAt, _updatedAt = updatedAt;
   
   factory CartProductModel({String? id, required String name, required String categories, required double price, String? imageUrl, String? description, required double amount, String? storeProductID, required String shoppingbagmodelID}) {
     return CartProductModel._internal(
@@ -172,14 +182,16 @@ class CartProductModel extends Model {
     buffer.write("description=" + "$_description" + ", ");
     buffer.write("amount=" + (_amount != null ? _amount!.toString() : "null") + ", ");
     buffer.write("storeProductID=" + "$_storeProductID" + ", ");
-    buffer.write("shoppingbagmodelID=" + "$_shoppingbagmodelID");
+    buffer.write("shoppingbagmodelID=" + "$_shoppingbagmodelID" + ", ");
+    buffer.write("createdAt=" + (_createdAt != null ? _createdAt!.format() : "null") + ", ");
+    buffer.write("updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
     buffer.write("}");
     
     return buffer.toString();
   }
   
   CartProductModel copyWith({String? id, String? name, String? categories, double? price, String? imageUrl, String? description, double? amount, String? storeProductID, String? shoppingbagmodelID}) {
-    return CartProductModel(
+    return CartProductModel._internal(
       id: id ?? this.id,
       name: name ?? this.name,
       categories: categories ?? this.categories,
@@ -200,10 +212,12 @@ class CartProductModel extends Model {
       _description = json['description'],
       _amount = (json['amount'] as num?)?.toDouble(),
       _storeProductID = json['storeProductID'],
-      _shoppingbagmodelID = json['shoppingbagmodelID'];
+      _shoppingbagmodelID = json['shoppingbagmodelID'],
+      _createdAt = json['createdAt'] != null ? TemporalDateTime.fromString(json['createdAt']) : null,
+      _updatedAt = json['updatedAt'] != null ? TemporalDateTime.fromString(json['updatedAt']) : null;
   
   Map<String, dynamic> toJson() => {
-    'id': id, 'name': _name, 'categories': _categories, 'price': _price, 'imageUrl': _imageUrl, 'description': _description, 'amount': _amount, 'storeProductID': _storeProductID, 'shoppingbagmodelID': _shoppingbagmodelID
+    'id': id, 'name': _name, 'categories': _categories, 'price': _price, 'imageUrl': _imageUrl, 'description': _description, 'amount': _amount, 'storeProductID': _storeProductID, 'shoppingbagmodelID': _shoppingbagmodelID, 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
   };
 
   static final QueryField ID = QueryField(fieldName: "cartProductModel.id");
@@ -278,6 +292,20 @@ class CartProductModel extends Model {
       key: CartProductModel.SHOPPINGBAGMODELID,
       isRequired: true,
       ofType: ModelFieldType(ModelFieldTypeEnum.string)
+    ));
+    
+    modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
+      fieldName: 'createdAt',
+      isRequired: false,
+      isReadOnly: true,
+      ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)
+    ));
+    
+    modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
+      fieldName: 'updatedAt',
+      isRequired: false,
+      isReadOnly: true,
+      ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)
     ));
   });
 }

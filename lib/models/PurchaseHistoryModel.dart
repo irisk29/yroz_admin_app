@@ -19,7 +19,7 @@
 
 // ignore_for_file: public_member_api_docs, file_names, unnecessary_new, prefer_if_null_operators, prefer_const_constructors, slash_for_doc_comments, annotate_overrides, non_constant_identifier_names, unnecessary_string_interpolations, prefer_adjacent_string_concatenation, unnecessary_const, dead_code
 
-import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
+import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter/foundation.dart';
 
 
@@ -33,6 +33,8 @@ class PurchaseHistoryModel extends Model {
   final String? _products;
   final String? _userID;
   final String? _storeID;
+  final TemporalDateTime? _createdAt;
+  final TemporalDateTime? _updatedAt;
 
   @override
   getInstanceType() => classType;
@@ -46,10 +48,10 @@ class PurchaseHistoryModel extends Model {
     try {
       return _date!;
     } catch(e) {
-      throw new DataStoreException(
-          DataStoreExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+      throw new AmplifyCodeGenModelException(
+          AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
           recoverySuggestion:
-            DataStoreExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+            AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
           underlyingException: e.toString()
           );
     }
@@ -59,10 +61,10 @@ class PurchaseHistoryModel extends Model {
     try {
       return _transactionID!;
     } catch(e) {
-      throw new DataStoreException(
-          DataStoreExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+      throw new AmplifyCodeGenModelException(
+          AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
           recoverySuggestion:
-            DataStoreExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+            AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
           underlyingException: e.toString()
           );
     }
@@ -80,7 +82,15 @@ class PurchaseHistoryModel extends Model {
     return _storeID;
   }
   
-  const PurchaseHistoryModel._internal({required this.id, required date, required transactionID, products, userID, storeID}): _date = date, _transactionID = transactionID, _products = products, _userID = userID, _storeID = storeID;
+  TemporalDateTime? get createdAt {
+    return _createdAt;
+  }
+  
+  TemporalDateTime? get updatedAt {
+    return _updatedAt;
+  }
+  
+  const PurchaseHistoryModel._internal({required this.id, required date, required transactionID, products, userID, storeID, createdAt, updatedAt}): _date = date, _transactionID = transactionID, _products = products, _userID = userID, _storeID = storeID, _createdAt = createdAt, _updatedAt = updatedAt;
   
   factory PurchaseHistoryModel({String? id, required TemporalDateTime date, required String transactionID, String? products, String? userID, String? storeID}) {
     return PurchaseHistoryModel._internal(
@@ -121,14 +131,16 @@ class PurchaseHistoryModel extends Model {
     buffer.write("transactionID=" + "$_transactionID" + ", ");
     buffer.write("products=" + "$_products" + ", ");
     buffer.write("userID=" + "$_userID" + ", ");
-    buffer.write("storeID=" + "$_storeID");
+    buffer.write("storeID=" + "$_storeID" + ", ");
+    buffer.write("createdAt=" + (_createdAt != null ? _createdAt!.format() : "null") + ", ");
+    buffer.write("updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
     buffer.write("}");
     
     return buffer.toString();
   }
   
   PurchaseHistoryModel copyWith({String? id, TemporalDateTime? date, String? transactionID, String? products, String? userID, String? storeID}) {
-    return PurchaseHistoryModel(
+    return PurchaseHistoryModel._internal(
       id: id ?? this.id,
       date: date ?? this.date,
       transactionID: transactionID ?? this.transactionID,
@@ -143,10 +155,12 @@ class PurchaseHistoryModel extends Model {
       _transactionID = json['transactionID'],
       _products = json['products'],
       _userID = json['userID'],
-      _storeID = json['storeID'];
+      _storeID = json['storeID'],
+      _createdAt = json['createdAt'] != null ? TemporalDateTime.fromString(json['createdAt']) : null,
+      _updatedAt = json['updatedAt'] != null ? TemporalDateTime.fromString(json['updatedAt']) : null;
   
   Map<String, dynamic> toJson() => {
-    'id': id, 'date': _date?.format(), 'transactionID': _transactionID, 'products': _products, 'userID': _userID, 'storeID': _storeID
+    'id': id, 'date': _date?.format(), 'transactionID': _transactionID, 'products': _products, 'userID': _userID, 'storeID': _storeID, 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
   };
 
   static final QueryField ID = QueryField(fieldName: "purchaseHistoryModel.id");
@@ -200,6 +214,20 @@ class PurchaseHistoryModel extends Model {
       key: PurchaseHistoryModel.STOREID,
       isRequired: false,
       ofType: ModelFieldType(ModelFieldTypeEnum.string)
+    ));
+    
+    modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
+      fieldName: 'createdAt',
+      isRequired: false,
+      isReadOnly: true,
+      ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)
+    ));
+    
+    modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
+      fieldName: 'updatedAt',
+      isRequired: false,
+      isReadOnly: true,
+      ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)
     ));
   });
 }

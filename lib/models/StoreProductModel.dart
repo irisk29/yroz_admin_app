@@ -19,7 +19,7 @@
 
 // ignore_for_file: public_member_api_docs, file_names, unnecessary_new, prefer_if_null_operators, prefer_const_constructors, slash_for_doc_comments, annotate_overrides, non_constant_identifier_names, unnecessary_string_interpolations, prefer_adjacent_string_concatenation, unnecessary_const, dead_code
 
-import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
+import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter/foundation.dart';
 
 
@@ -34,6 +34,8 @@ class StoreProductModel extends Model {
   final String? _imageUrl;
   final String? _description;
   final String? _onlinestoremodelID;
+  final TemporalDateTime? _createdAt;
+  final TemporalDateTime? _updatedAt;
 
   @override
   getInstanceType() => classType;
@@ -47,10 +49,10 @@ class StoreProductModel extends Model {
     try {
       return _name!;
     } catch(e) {
-      throw new DataStoreException(
-          DataStoreExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+      throw new AmplifyCodeGenModelException(
+          AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
           recoverySuggestion:
-            DataStoreExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+            AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
           underlyingException: e.toString()
           );
     }
@@ -60,10 +62,10 @@ class StoreProductModel extends Model {
     try {
       return _categories!;
     } catch(e) {
-      throw new DataStoreException(
-          DataStoreExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+      throw new AmplifyCodeGenModelException(
+          AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
           recoverySuggestion:
-            DataStoreExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+            AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
           underlyingException: e.toString()
           );
     }
@@ -73,10 +75,10 @@ class StoreProductModel extends Model {
     try {
       return _price!;
     } catch(e) {
-      throw new DataStoreException(
-          DataStoreExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+      throw new AmplifyCodeGenModelException(
+          AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
           recoverySuggestion:
-            DataStoreExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+            AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
           underlyingException: e.toString()
           );
     }
@@ -94,16 +96,24 @@ class StoreProductModel extends Model {
     try {
       return _onlinestoremodelID!;
     } catch(e) {
-      throw new DataStoreException(
-          DataStoreExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+      throw new AmplifyCodeGenModelException(
+          AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
           recoverySuggestion:
-            DataStoreExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+            AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
           underlyingException: e.toString()
           );
     }
   }
   
-  const StoreProductModel._internal({required this.id, required name, required categories, required price, imageUrl, description, required onlinestoremodelID}): _name = name, _categories = categories, _price = price, _imageUrl = imageUrl, _description = description, _onlinestoremodelID = onlinestoremodelID;
+  TemporalDateTime? get createdAt {
+    return _createdAt;
+  }
+  
+  TemporalDateTime? get updatedAt {
+    return _updatedAt;
+  }
+  
+  const StoreProductModel._internal({required this.id, required name, required categories, required price, imageUrl, description, required onlinestoremodelID, createdAt, updatedAt}): _name = name, _categories = categories, _price = price, _imageUrl = imageUrl, _description = description, _onlinestoremodelID = onlinestoremodelID, _createdAt = createdAt, _updatedAt = updatedAt;
   
   factory StoreProductModel({String? id, required String name, required String categories, required double price, String? imageUrl, String? description, required String onlinestoremodelID}) {
     return StoreProductModel._internal(
@@ -147,14 +157,16 @@ class StoreProductModel extends Model {
     buffer.write("price=" + (_price != null ? _price!.toString() : "null") + ", ");
     buffer.write("imageUrl=" + "$_imageUrl" + ", ");
     buffer.write("description=" + "$_description" + ", ");
-    buffer.write("onlinestoremodelID=" + "$_onlinestoremodelID");
+    buffer.write("onlinestoremodelID=" + "$_onlinestoremodelID" + ", ");
+    buffer.write("createdAt=" + (_createdAt != null ? _createdAt!.format() : "null") + ", ");
+    buffer.write("updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
     buffer.write("}");
     
     return buffer.toString();
   }
   
   StoreProductModel copyWith({String? id, String? name, String? categories, double? price, String? imageUrl, String? description, String? onlinestoremodelID}) {
-    return StoreProductModel(
+    return StoreProductModel._internal(
       id: id ?? this.id,
       name: name ?? this.name,
       categories: categories ?? this.categories,
@@ -171,10 +183,12 @@ class StoreProductModel extends Model {
       _price = (json['price'] as num?)?.toDouble(),
       _imageUrl = json['imageUrl'],
       _description = json['description'],
-      _onlinestoremodelID = json['onlinestoremodelID'];
+      _onlinestoremodelID = json['onlinestoremodelID'],
+      _createdAt = json['createdAt'] != null ? TemporalDateTime.fromString(json['createdAt']) : null,
+      _updatedAt = json['updatedAt'] != null ? TemporalDateTime.fromString(json['updatedAt']) : null;
   
   Map<String, dynamic> toJson() => {
-    'id': id, 'name': _name, 'categories': _categories, 'price': _price, 'imageUrl': _imageUrl, 'description': _description, 'onlinestoremodelID': _onlinestoremodelID
+    'id': id, 'name': _name, 'categories': _categories, 'price': _price, 'imageUrl': _imageUrl, 'description': _description, 'onlinestoremodelID': _onlinestoremodelID, 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
   };
 
   static final QueryField ID = QueryField(fieldName: "storeProductModel.id");
@@ -235,6 +249,20 @@ class StoreProductModel extends Model {
       key: StoreProductModel.ONLINESTOREMODELID,
       isRequired: true,
       ofType: ModelFieldType(ModelFieldTypeEnum.string)
+    ));
+    
+    modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
+      fieldName: 'createdAt',
+      isRequired: false,
+      isReadOnly: true,
+      ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)
+    ));
+    
+    modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
+      fieldName: 'updatedAt',
+      isRequired: false,
+      isReadOnly: true,
+      ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)
     ));
   });
 }

@@ -20,7 +20,7 @@
 // ignore_for_file: public_member_api_docs, file_names, unnecessary_new, prefer_if_null_operators, prefer_const_constructors, slash_for_doc_comments, annotate_overrides, non_constant_identifier_names, unnecessary_string_interpolations, prefer_adjacent_string_concatenation, unnecessary_const, dead_code
 
 import 'ModelProvider.dart';
-import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
+import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter/foundation.dart';
 
 
@@ -33,6 +33,8 @@ class StoreOwnerModel extends Model {
   final PhysicalStoreModel? _physicalStoreModel;
   final String? _bankAccountToken;
   final TemporalDateTime? _lastPurchasesView;
+  final TemporalDateTime? _createdAt;
+  final TemporalDateTime? _updatedAt;
   final String? _storeOwnerModelOnlineStoreModelId;
   final String? _storeOwnerModelPhysicalStoreModelId;
 
@@ -60,6 +62,14 @@ class StoreOwnerModel extends Model {
     return _lastPurchasesView;
   }
   
+  TemporalDateTime? get createdAt {
+    return _createdAt;
+  }
+  
+  TemporalDateTime? get updatedAt {
+    return _updatedAt;
+  }
+  
   String? get storeOwnerModelOnlineStoreModelId {
     return _storeOwnerModelOnlineStoreModelId;
   }
@@ -68,7 +78,7 @@ class StoreOwnerModel extends Model {
     return _storeOwnerModelPhysicalStoreModelId;
   }
   
-  const StoreOwnerModel._internal({required this.id, onlineStoreModel, physicalStoreModel, bankAccountToken, lastPurchasesView, storeOwnerModelOnlineStoreModelId, storeOwnerModelPhysicalStoreModelId}): _onlineStoreModel = onlineStoreModel, _physicalStoreModel = physicalStoreModel, _bankAccountToken = bankAccountToken, _lastPurchasesView = lastPurchasesView, _storeOwnerModelOnlineStoreModelId = storeOwnerModelOnlineStoreModelId, _storeOwnerModelPhysicalStoreModelId = storeOwnerModelPhysicalStoreModelId;
+  const StoreOwnerModel._internal({required this.id, onlineStoreModel, physicalStoreModel, bankAccountToken, lastPurchasesView, createdAt, updatedAt, storeOwnerModelOnlineStoreModelId, storeOwnerModelPhysicalStoreModelId}): _onlineStoreModel = onlineStoreModel, _physicalStoreModel = physicalStoreModel, _bankAccountToken = bankAccountToken, _lastPurchasesView = lastPurchasesView, _createdAt = createdAt, _updatedAt = updatedAt, _storeOwnerModelOnlineStoreModelId = storeOwnerModelOnlineStoreModelId, _storeOwnerModelPhysicalStoreModelId = storeOwnerModelPhysicalStoreModelId;
   
   factory StoreOwnerModel({String? id, OnlineStoreModel? onlineStoreModel, PhysicalStoreModel? physicalStoreModel, String? bankAccountToken, TemporalDateTime? lastPurchasesView, String? storeOwnerModelOnlineStoreModelId, String? storeOwnerModelPhysicalStoreModelId}) {
     return StoreOwnerModel._internal(
@@ -109,6 +119,8 @@ class StoreOwnerModel extends Model {
     buffer.write("id=" + "$id" + ", ");
     buffer.write("bankAccountToken=" + "$_bankAccountToken" + ", ");
     buffer.write("lastPurchasesView=" + (_lastPurchasesView != null ? _lastPurchasesView!.format() : "null") + ", ");
+    buffer.write("createdAt=" + (_createdAt != null ? _createdAt!.format() : "null") + ", ");
+    buffer.write("updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null") + ", ");
     buffer.write("storeOwnerModelOnlineStoreModelId=" + "$_storeOwnerModelOnlineStoreModelId" + ", ");
     buffer.write("storeOwnerModelPhysicalStoreModelId=" + "$_storeOwnerModelPhysicalStoreModelId");
     buffer.write("}");
@@ -117,7 +129,7 @@ class StoreOwnerModel extends Model {
   }
   
   StoreOwnerModel copyWith({String? id, OnlineStoreModel? onlineStoreModel, PhysicalStoreModel? physicalStoreModel, String? bankAccountToken, TemporalDateTime? lastPurchasesView, String? storeOwnerModelOnlineStoreModelId, String? storeOwnerModelPhysicalStoreModelId}) {
-    return StoreOwnerModel(
+    return StoreOwnerModel._internal(
       id: id ?? this.id,
       onlineStoreModel: onlineStoreModel ?? this.onlineStoreModel,
       physicalStoreModel: physicalStoreModel ?? this.physicalStoreModel,
@@ -137,11 +149,13 @@ class StoreOwnerModel extends Model {
         : null,
       _bankAccountToken = json['bankAccountToken'],
       _lastPurchasesView = json['lastPurchasesView'] != null ? TemporalDateTime.fromString(json['lastPurchasesView']) : null,
+      _createdAt = json['createdAt'] != null ? TemporalDateTime.fromString(json['createdAt']) : null,
+      _updatedAt = json['updatedAt'] != null ? TemporalDateTime.fromString(json['updatedAt']) : null,
       _storeOwnerModelOnlineStoreModelId = json['storeOwnerModelOnlineStoreModelId'],
       _storeOwnerModelPhysicalStoreModelId = json['storeOwnerModelPhysicalStoreModelId'];
   
   Map<String, dynamic> toJson() => {
-    'id': id, 'onlineStoreModel': _onlineStoreModel?.toJson(), 'physicalStoreModel': _physicalStoreModel?.toJson(), 'bankAccountToken': _bankAccountToken, 'lastPurchasesView': _lastPurchasesView?.format(), 'storeOwnerModelOnlineStoreModelId': _storeOwnerModelOnlineStoreModelId, 'storeOwnerModelPhysicalStoreModelId': _storeOwnerModelPhysicalStoreModelId
+    'id': id, 'onlineStoreModel': _onlineStoreModel?.toJson(), 'physicalStoreModel': _physicalStoreModel?.toJson(), 'bankAccountToken': _bankAccountToken, 'lastPurchasesView': _lastPurchasesView?.format(), 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format(), 'storeOwnerModelOnlineStoreModelId': _storeOwnerModelOnlineStoreModelId, 'storeOwnerModelPhysicalStoreModelId': _storeOwnerModelPhysicalStoreModelId
   };
 
   static final QueryField ID = QueryField(fieldName: "storeOwnerModel.id");
@@ -195,6 +209,20 @@ class StoreOwnerModel extends Model {
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
       key: StoreOwnerModel.LASTPURCHASESVIEW,
       isRequired: false,
+      ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)
+    ));
+    
+    modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
+      fieldName: 'createdAt',
+      isRequired: false,
+      isReadOnly: true,
+      ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)
+    ));
+    
+    modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
+      fieldName: 'updatedAt',
+      isRequired: false,
+      isReadOnly: true,
       ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)
     ));
     

@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
+import 'package:yroz_admin/LogicLayer/AppUser.dart';
+import 'package:yroz_admin/screens/email_analysis_screen.dart';
+import 'package:yroz_admin/screens/landing_screen.dart';
 import 'package:yroz_admin/screens/loading_splash_screen.dart';
+import 'package:yroz_admin/screens/login_screen.dart';
+import 'package:yroz_admin/screens/store_purchases_screen.dart';
 import 'package:yroz_admin/screens/tabs_screen.dart';
 import 'package:yroz_admin/screens/global_screen.dart';
+import 'package:yroz_admin/screens/user_purchases_screen.dart';
 import 'package:yroz_admin/screens/users_screen.dart';
 import 'package:yroz_admin/screens/stores_screen.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
@@ -46,20 +53,32 @@ class _MyAppState extends State<MyApp> {
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
-    return MaterialApp(
-        title: 'Admin',
-        theme: ThemeData(
-          primarySwatch: MaterialColor(0xFFFF9191, color),
-          accentColor: Colors.purple,
-          fontFamily: 'Montserrat',
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (ctx) => AppUser(),
         ),
-        home: LoadingSplashScreen(),
-        routes: {
-          LoadingSplashScreen.routeName: (ctx) => LoadingSplashScreen(),
-          TabsScreen.routeName: (ctx) => TabsScreen(),
-          GlobalScreen.routeName: (ctx) => GlobalScreen(),
-          UsersScreen.routeName: (ctx) => UsersScreen(),
-          StoresScreen.routeName: (ctx) => StoresScreen(),
-        });
+      ],
+      child: MaterialApp(
+          title: 'Admin',
+          theme: ThemeData(
+            primarySwatch: MaterialColor(0xFFFF9191, color),
+            accentColor: Colors.purple,
+            fontFamily: 'Montserrat',
+          ),
+          home: LoadingSplashScreen(),
+          routes: {
+            LoadingSplashScreen.routeName: (ctx) => LoadingSplashScreen(),
+            TabsScreen.routeName: (ctx) => TabsScreen(),
+            GlobalScreen.routeName: (ctx) => GlobalScreen(),
+            UsersScreen.routeName: (ctx) => UsersScreen(),
+            StoresScreen.routeName: (ctx) => StoresScreen(),
+            UserPurchasesScreen.routeName: (ctx) => UserPurchasesScreen(),
+            StorePurchasesScreen.routeName: (ctx) => StorePurchasesScreen(),
+            EmailAnalysisScreen.routeName: (ctx) => EmailAnalysisScreen(),
+            LandingPage.routeName: (ctx) => LandingPage(),
+            EmailSignInPage.routeName: (ctx) => EmailSignInPage(),
+          }),
+    );
   }
 }

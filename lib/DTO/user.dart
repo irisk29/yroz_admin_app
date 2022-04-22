@@ -5,6 +5,7 @@ class User {
   final String email;
   final double cashback;
   final String imgUrl;
+  final String id;
 
-  User(this.name, this.email, this.cashback, this.imgUrl);
+  User(this.id, this.name, this.email, this.cashback, this.imgUrl);
 }

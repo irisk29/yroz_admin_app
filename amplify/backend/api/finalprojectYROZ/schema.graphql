@@ -34,7 +34,7 @@ type OnlineStoreModel @model @auth(rules: [{allow: public}]) {
   name: String!
   phoneNumber: AWSPhone!
   address: String!
-  operationHours: AWSJSON!
+  operationHours: String!
   categories: AWSJSON!
   storeProductModels: [StoreProductModel] @hasMany(indexName: "byOnlineStoreModel", fields: ["id"])
   qrCode: String
@@ -46,7 +46,7 @@ type PhysicalStoreModel @model @auth(rules: [{allow: public}]) {
   name: String!
   phoneNumber: AWSPhone!
   address: String!
-  operationHours: AWSJSON!
+  operationHours: String!
   categories: AWSJSON!
   qrCode: String
   imageUrl: String
