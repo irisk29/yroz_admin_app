@@ -47,6 +47,7 @@ class AppUser extends ChangeNotifier {
 
   signInWithEmailAndPassword(String email, String password) async {
     try {
+      signOut(); // TODO: REMOVE IT
       SignInResult res = await Amplify.Auth.signIn(
         username: email.trim(),
         password: password.trim(),

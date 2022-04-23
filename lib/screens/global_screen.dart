@@ -18,18 +18,36 @@ class _GlobalScreenState extends State<GlobalScreen> {
   double profit = 0.0;
   Map<String, double> dataMap = {};
 
+  GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
+      GlobalKey<RefreshIndicatorState>();
+
   Future<double> getCompanyProfit() async {
     registeredUsers = Admin().getRegisteredUsersAmount();
     physicalStores = Admin().getsAmountOfPhysicalStores();
     onlineStores = Admin().getsAmountOfOnlineStores();
 
-    dataMap = {"online stores": onlineStores.toDouble(), "physical stores": physicalStores.toDouble()};
+    dataMap = {
+      "online stores": onlineStores.toDouble(),
+      "physical stores": physicalStores.toDouble()
+    };
 
     DateTime now = DateTime.now();
     DateTime monthAgo = DateTime(now.year, now.month - 1, now.day);
     double res = await Admin().getCompanyProfit(monthAgo, now);
     FLog.info(text: res.toString());
     return res;
+  }
+
+  Future<void> _pullRefresh() async {
+    setState(() {
+//      registeredUsers = Admin().getRegisteredUsersAmount();
+//      physicalStores = Admin().getsAmountOfPhysicalStores();
+//      onlineStores = Admin().getsAmountOfOnlineStores();
+//      dataMap = {
+//        "online stores": onlineStores.toDouble(),
+//        "physical stores": physicalStores.toDouble()
+//      };
+    });
   }
 
   @override
@@ -46,68 +64,89 @@ class _GlobalScreenState extends State<GlobalScreen> {
     ];
     return FutureBuilder(
       future: getCompanyProfit(),
-      builder: (BuildContext context, AsyncSnapshot<double> snap) => snap.connectionState != ConnectionState.done
+      builder: (BuildContext context, AsyncSnapshot<double> snap) => snap
+                  .connectionState !=
+              ConnectionState.done
           ? Center(child: CircularProgressIndicator())
-          : Container(
-              alignment: AlignmentDirectional.center,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  FittedBox(
-                    child: PieChart(
-                      dataMap: dataMap,
-                      animationDuration: Duration(milliseconds: 800),
-                      chartLegendSpacing: 32,
-                      chartRadius: MediaQuery.of(context).size.width / 3.2,
-                      initialAngleInDegree: 0,
-                      chartType: ChartType.disc,
-                      ringStrokeWidth: 32,
-                      centerText: "Stores",
-                      legendOptions: LegendOptions(
-                        showLegendsInRow: false,
-                        legendPosition: LegendPosition.right,
-                        showLegends: true,
-                        legendTextStyle: TextStyle(
-                          fontWeight: FontWeight.bold,
+          : RefreshIndicator(
+              key: _refreshIndicatorKey,
+              onRefresh: _pullRefresh,
+              child: SingleChildScrollView(
+                padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.20),
+                physics: AlwaysScrollableScrollPhysics(),
+                child: Container(
+                  alignment: AlignmentDirectional.center,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      FittedBox(
+                        child: PieChart(
+                          dataMap: dataMap,
+                          animationDuration: Duration(milliseconds: 800),
+                          chartLegendSpacing: 32,
+                          chartRadius: MediaQuery.of(context).size.width / 3.2,
+                          initialAngleInDegree: 0,
+                          chartType: ChartType.disc,
+                          ringStrokeWidth: 32,
+                          centerText: "Stores",
+                          legendOptions: LegendOptions(
+                            showLegendsInRow: false,
+                            legendPosition: LegendPosition.right,
+                            showLegends: true,
+                            legendTextStyle: TextStyle(
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          chartValuesOptions: ChartValuesOptions(
+                            showChartValueBackground: true,
+                            showChartValues: true,
+                            showChartValuesInPercentage: false,
+                            showChartValuesOutside: false,
+                            decimalPlaces: 0,
+                          ),
+                          gradientList: gradientList,
+                          emptyColorGradient: [
+                            Color(0xff6c5ce7),
+                            Colors.blue,
+                          ],
                         ),
                       ),
-                      chartValuesOptions: ChartValuesOptions(
-                        showChartValueBackground: true,
-                        showChartValues: true,
-                        showChartValuesInPercentage: false,
-                        showChartValuesOutside: false,
-                        decimalPlaces: 0,
-                      ),
-                      gradientList: gradientList,
-                      emptyColorGradient: [
-                        Color(0xff6c5ce7),
-                        Colors.blue,
-                      ],
-                    ),
-                  ),
-                  SizedBox(height: MediaQuery.of(context).size.height * 0.05),
-                  FittedBox(
-                      child: Text("Number of Registered Users: $registeredUsers",
-                          style: DefaultTextStyle.of(context).style.apply(fontSizeFactor: 1.2))),
-                  SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-                  FittedBox(
-                      child: Text("YROZ Profit: ${snap.data == null ? -1 : snap.data}€",
-                          style: DefaultTextStyle.of(context).style.apply(fontSizeFactor: 1.2))),
-                  SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-                  FittedBox(
-                    child: ElevatedButton(
-                      child: Text(
-                        'View feedback analysis',
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
+                      SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.05),
+                      FittedBox(
+                          child: Text(
+                              "Number of Registered Users: $registeredUsers",
+                              style: DefaultTextStyle.of(context)
+                                  .style
+                                  .apply(fontSizeFactor: 1.2))),
+                      SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.01),
+                      FittedBox(
+                          child: Text(
+                              "YROZ Profit: ${snap.data == null ? -1 : snap.data}€",
+                              style: DefaultTextStyle.of(context)
+                                  .style
+                                  .apply(fontSizeFactor: 1.2))),
+                      SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.01),
+                      FittedBox(
+                        child: ElevatedButton(
+                          child: Text(
+                            'View feedback analysis',
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          onPressed: () => Navigator.of(context)
+                              .pushReplacementNamed(
+                                  EmailAnalysisScreen.routeName),
                         ),
                       ),
-                      onPressed: () => Navigator.of(context).pushReplacementNamed(EmailAnalysisScreen.routeName),
-                    ),
+                    ],
                   ),
-                ],
+                ),
               ),
             ),
     );

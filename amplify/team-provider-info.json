@@ -10,11 +10,6 @@
       "StackName": "amplify-finalprojectyroz-staging-193338",
       "StackId": "arn:aws:cloudformation:us-east-1:210566832033:stack/amplify-finalprojectyroz-staging-193338/d3b5b1e0-9b28-11ec-9448-12b1f7cb1399",
       "AmplifyAppId": "d1btmbctt8q741"
-    },
-    "categories": {
-      "auth": {
-        "finalprojectYROZ": {}
-      }
     }
   }
 }
