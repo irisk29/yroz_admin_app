@@ -11,6 +11,7 @@ import 'package:yroz_admin/LogicLayer/admin.dart';
 import 'package:yroz_admin/amplifyconfiguration.dart';
 import 'package:yroz_admin/models/ModelProvider.dart';
 import 'package:yroz_admin/screens/login_screen.dart';
+import 'package:yroz_admin/screens/tabs_screen.dart';
 
 class LoadingSplashScreen extends StatefulWidget {
   static const routeName = '/loading-splash';
@@ -55,7 +56,7 @@ class _LoadingSplashScreenState extends State<LoadingSplashScreen> with TickerPr
           FLog.info(text: "AWS Amplify is ready");
           ticker.then((value) {
             Admin();
-            Navigator.pushReplacementNamed(context, EmailSignInPage.routeName);
+            Navigator.pushReplacementNamed(context, TabsScreen.routeName);
           });
         }
       });

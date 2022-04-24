@@ -8,10 +8,8 @@ import 'package:yroz_admin/result/OK.dart';
 import 'package:yroz_admin/result/ResultInterface.dart';
 
 class InternalPaymentGateway {
-  static final InternalPaymentGateway _internalPaymentGateway =
-      InternalPaymentGateway._internal();
-  static const externalPaymentUrl =
-      '0cjie5t2fa.execute-api.us-east-1.amazonaws.com';
+  static final InternalPaymentGateway _internalPaymentGateway = InternalPaymentGateway._internal();
+  static const externalPaymentUrl = '0cjie5t2fa.execute-api.us-east-1.amazonaws.com';
 
   factory InternalPaymentGateway() {
     return _internalPaymentGateway;
@@ -19,8 +17,7 @@ class InternalPaymentGateway {
 
   InternalPaymentGateway._internal();
 
-  Future<ResultInterface> _postRequest(
-      Uri url, Map<String, String> body) async {
+  Future<ResultInterface> _postRequest(Uri url, Map<String, String> body) async {
     try {
       var response = await http.post(url, body: json.encode(body));
       var responseBody = json.decode(response.body);
@@ -34,8 +31,7 @@ class InternalPaymentGateway {
     }
   }
 
-  Future<ResultInterface> _patchRequest(
-      Uri url, Map<String, String> body) async {
+  Future<ResultInterface> _patchRequest(Uri url, Map<String, String> body) async {
     try {
       var response = await http.patch(url, body: json.encode(body));
       var responseBody = json.decode(response.body);
@@ -49,8 +45,7 @@ class InternalPaymentGateway {
     }
   }
 
-  Future<ResultInterface> _deleteRequest(
-      Uri url, Map<String, String> body) async {
+  Future<ResultInterface> _deleteRequest(Uri url, Map<String, String> body) async {
     try {
       var response = await http.delete(url, body: json.encode(body));
       var responseBody = json.decode(response.body);
@@ -64,8 +59,7 @@ class InternalPaymentGateway {
     }
   }
 
-  Future<ResultInterface> _getRequest(
-      String authority, String unencodedPath, Map<String, String> body) async {
+  Future<ResultInterface> _getRequest(String authority, String unencodedPath, Map<String, String> body) async {
     try {
       var url = Uri.https(authority, unencodedPath, body);
       var response = await http.get(url);
@@ -82,8 +76,7 @@ class InternalPaymentGateway {
 
   // params: userId - email, eWalletToken - saved e wallet token that received when calling createUserAccount
   // returns: user's e wallet balance
-  Future<ResultInterface<String>> eWalletBalance(
-      String userId, String eWalletToken) async {
+  Future<ResultInterface<String>> eWalletBalance(String userId, String eWalletToken) async {
     var body = {
       "userId": userId,
       "eWalletToken": eWalletToken,
@@ -96,10 +89,9 @@ class InternalPaymentGateway {
     return new Failure(result.getMessage());
   }
 
-  Future<ResultInterface<List<Map<String, Object>>>> getPurchaseHistory(
-      DateTime startDate, DateTime endDate,
+  Future<ResultInterface<List<Map<String, Object>>>> getPurchaseHistory(DateTime startDate, DateTime endDate,
       {String userId = "*", String storeId = "*", bool? succeeded}) async {
-    final DateFormat formatter = DateFormat('dd/MM/yyyy HH:mm:ss');
+    final DateFormat formatter = DateFormat('yyyy/MM/dd HH:mm:ss');
     var body = {
       "startDate": formatter.format(startDate),
       "endDate": formatter.format(endDate),
@@ -111,8 +103,7 @@ class InternalPaymentGateway {
     if (result.getTag()) {
       var purchaseHistory = result.getValue()["purchases"] as List<dynamic>;
       var convertedPurchaseHistory = purchaseHistory
-          .map((e) => (e as Map<String, dynamic>)
-              .map((key, value) => MapEntry(key, value as Object)))
+          .map((e) => (e as Map<String, dynamic>).map((key, value) => MapEntry(key, value as Object)))
           .toList();
       return new Ok(result.getMessage(), convertedPurchaseHistory);
     }
@@ -123,7 +114,7 @@ class InternalPaymentGateway {
     DateTime startDate,
     DateTime endDate,
   ) async {
-    final DateFormat formatter = DateFormat('dd/MM/yyyy HH:mm:ss');
+    final DateFormat formatter = DateFormat('yyyy/MM/dd HH:mm:ss');
     var body = {
       "startDate": formatter.format(startDate),
       "endDate": formatter.format(endDate),

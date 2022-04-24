@@ -35,7 +35,7 @@ class _EmailAnalysisScreen extends State<EmailAnalysisScreen> {
         .map((e) => _ChartData(e.key, e.value, Colors.primaries[Random().nextInt(Colors.primaries.length)]))
         .toList();
     return SfCartesianChart(
-        primaryXAxis: CategoryAxis(labelIntersectAction: AxisLabelIntersectAction.multipleRows),
+        primaryXAxis: CategoryAxis(labelIntersectAction: AxisLabelIntersectAction.multipleRows, maximumLabelWidth: 0.5),
         primaryYAxis: NumericAxis(minimum: 0, maximum: 5, interval: 1, isVisible: true),
         tooltipBehavior: _tooltip,
         series: <ChartSeries<_ChartData, String>>[
