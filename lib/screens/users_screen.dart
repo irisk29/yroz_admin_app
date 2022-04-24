@@ -14,6 +14,13 @@ class UsersScreen extends StatefulWidget {
 class _UsersScreenState extends State<UsersScreen> {
   List<User> users = [];
 
+  GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
+      GlobalKey<RefreshIndicatorState>();
+
+  Future<void> _pullRefresh() async {
+    setState(() {});
+  }
+
   Future<void> fetchUsers() async {
     users = await AdminMetrics().fetchUsers();
   }
@@ -29,57 +36,53 @@ class _UsersScreenState extends State<UsersScreen> {
               : users.isEmpty
                   ? Center(child: Text("NO REGISTERED USERS!"))
                   : SafeArea(
+                      child: RefreshIndicator(
+                      key: _refreshIndicatorKey,
+                      onRefresh: _pullRefresh,
                       child: ListView.builder(
-                      itemBuilder: (ctx, index) {
-                        return Column(
-                          children: [
-                            Card(
-                              elevation: 5,
-                              margin: EdgeInsets.symmetric(
-                                vertical: 8,
-                                horizontal: 5,
-                              ),
-                              child: ListTile(
-                                  leading: CircleAvatar(
-                                    radius: 25,
-                                    child: Padding(
-                                      padding: EdgeInsets.all(6),
-                                      child: Container(
-                                        height: deviceSize.height * 0.3,
-                                        decoration: BoxDecoration(
-                                          image: DecorationImage(
-                                              fit: BoxFit.cover,
-                                              image: NetworkImage(
-                                                  users[index].imgUrl)),
-                                        ),
-                                      ),
+                        itemBuilder: (ctx, index) {
+                          return Column(
+                            children: [
+                              Card(
+                                elevation: 5,
+                                margin: EdgeInsets.symmetric(
+                                  vertical: 8,
+                                  horizontal: 5,
+                                ),
+                                child: ListTile(
+                                    leading: CircleAvatar(
+                                      radius: 25,
+                                      backgroundImage:
+                                          NetworkImage(users[index].imgUrl),
+                                      backgroundColor: Colors.transparent,
                                     ),
-                                  ),
-                                  title: Text(users[index].name),
-                                  subtitle: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(users[index].email),
-                                      Text(
-                                          "Cashback: ${users[index].cashback.toString()}")
-                                    ],
-                                  ),
-                                  isThreeLine: true,
-                                  trailing: IconButton(
-                                    icon: Icon(Icons.remove_red_eye_outlined),
-                                    color: Theme.of(context).primaryColor,
-                                    onPressed: () => Navigator.of(context)
-                                        .pushNamed(UserPurchasesScreen.routeName,
-                                            arguments: {
-                                          "userID": users[index].id
-                                        }),
-                                  )),
-                            ),
-                          ],
-                        );
-                      },
-                      itemCount: users.length,
+                                    title: Text(users[index].name),
+                                    subtitle: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(users[index].email),
+                                        Text(
+                                            "Cashback: ${users[index].cashback.toString()}")
+                                      ],
+                                    ),
+                                    isThreeLine: true,
+                                    trailing: IconButton(
+                                      icon: Icon(Icons.remove_red_eye_outlined),
+                                      color: Theme.of(context).primaryColor,
+                                      onPressed: () => Navigator.of(context)
+                                          .pushNamed(
+                                              UserPurchasesScreen.routeName,
+                                              arguments: {
+                                            "userID": users[index].id
+                                          }),
+                                    )),
+                              ),
+                            ],
+                          );
+                        },
+                        itemCount: users.length,
+                      ),
                     ));
         });
   }

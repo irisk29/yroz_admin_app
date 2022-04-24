@@ -13,6 +13,13 @@ class StoresScreen extends StatefulWidget {
 class _StoresScreenState extends State<StoresScreen> {
   List<Store> stores = [];
 
+  GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
+      GlobalKey<RefreshIndicatorState>();
+
+  Future<void> _pullRefresh() async {
+    setState(() {});
+  }
+
   Future<void> fetchUsers() async {
     stores = await AdminMetrics().fetchStores();
   }
@@ -28,56 +35,60 @@ class _StoresScreenState extends State<StoresScreen> {
               : stores.isEmpty
                   ? Center(child: Text("NO STORES WERE OPEN!"))
                   : SafeArea(
+                      child: RefreshIndicator(
+                      key: _refreshIndicatorKey,
+                      onRefresh: _pullRefresh,
                       child: ListView.builder(
-                      itemBuilder: (ctx, index) {
-                        return Column(
-                          children: [
-                            Card(
-                              elevation: 5,
-                              margin: EdgeInsets.symmetric(
-                                vertical: 8,
-                                horizontal: 5,
-                              ),
-                              child: ListTile(
-                                  leading: CircleAvatar(
-                                    radius: 25,
-                                    child: Padding(
-                                      padding: EdgeInsets.all(6),
-                                      child: FittedBox(
-                                        child: Icon(Icons.store),
+                        itemBuilder: (ctx, index) {
+                          return Column(
+                            children: [
+                              Card(
+                                elevation: 5,
+                                margin: EdgeInsets.symmetric(
+                                  vertical: 8,
+                                  horizontal: 5,
+                                ),
+                                child: ListTile(
+                                    leading: CircleAvatar(
+                                      radius: 25,
+                                      child: Padding(
+                                        padding: EdgeInsets.all(6),
+                                        child: FittedBox(
+                                          child: Icon(Icons.store),
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                  title: stores[index].isOnline
-                                      ? Text(
-                                          "Online store: ${stores[index].storeName}")
-                                      : Text(
-                                          "Physical store: ${stores[index].storeName}"),
-                                  subtitle: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(stores[index].address),
-                                      Text(stores[index].phoneNumber),
-                                    ],
-                                  ),
-                                  isThreeLine: true,
-                                  trailing: IconButton(
-                                    icon: Icon(Icons.remove_red_eye_outlined),
-                                    color: Theme.of(context).primaryColor,
-                                    onPressed: () => Navigator.of(context)
-                                        .pushNamed(
-                                            StorePurchasesScreen.routeName,
-                                            arguments: {
-                                          "storeID": stores[index].storeID,
-                                          "storeName": stores[index].storeName
-                                        }),
-                                  )),
-                            ),
-                          ],
-                        );
-                      },
-                      itemCount: stores.length,
+                                    title: stores[index].isOnline
+                                        ? Text(
+                                            "Online store: ${stores[index].storeName}")
+                                        : Text(
+                                            "Physical store: ${stores[index].storeName}"),
+                                    subtitle: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(stores[index].address),
+                                        Text(stores[index].phoneNumber),
+                                      ],
+                                    ),
+                                    isThreeLine: true,
+                                    trailing: IconButton(
+                                      icon: Icon(Icons.remove_red_eye_outlined),
+                                      color: Theme.of(context).primaryColor,
+                                      onPressed: () => Navigator.of(context)
+                                          .pushNamed(
+                                              StorePurchasesScreen.routeName,
+                                              arguments: {
+                                            "storeID": stores[index].storeID,
+                                            "storeName": stores[index].storeName
+                                          }),
+                                    )),
+                              ),
+                            ],
+                          );
+                        },
+                        itemCount: stores.length,
+                      ),
                     ));
         });
   }
