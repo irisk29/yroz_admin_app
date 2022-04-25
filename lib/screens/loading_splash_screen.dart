@@ -56,7 +56,7 @@ class _LoadingSplashScreenState extends State<LoadingSplashScreen> with TickerPr
           FLog.info(text: "AWS Amplify is ready");
           ticker.then((value) {
             Admin();
-            Navigator.pushReplacementNamed(context, TabsScreen.routeName);
+            Navigator.pushReplacementNamed(context, EmailSignInPage.routeName);
           });
         }
       });

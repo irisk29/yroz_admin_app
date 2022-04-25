@@ -1,7 +1,4 @@
-import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:yroz_admin/LogicLayer/AppUser.dart';
 import 'package:yroz_admin/screens/global_screen.dart';
 import 'package:yroz_admin/screens/login_screen.dart';
 import 'package:yroz_admin/screens/stores_screen.dart';
@@ -39,7 +36,6 @@ class _TabsScreenState extends State<TabsScreen> {
         actions: [
           IconButton(
               onPressed: () async {
-                await Provider.of<AppUser>(context, listen: false).signOut();
                 Navigator.of(context).pushReplacementNamed(EmailSignInPage.routeName);
               },
               icon: Icon(Icons.logout_rounded))

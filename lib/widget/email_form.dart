@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:yroz_admin/LogicLayer/AppUser.dart';
 import 'package:yroz_admin/screens/tabs_screen.dart';
 import 'package:yroz_admin/widget/email_login.dart';
 import 'package:yroz_admin/widget/error_dialog.dart';
@@ -11,9 +10,8 @@ class EmailSignInForm extends StatefulWidget {
   const EmailSignInForm({Key? key, this.model}) : super(key: key);
 
   static Widget create(BuildContext context) {
-    final appUser = Provider.of<AppUser>(context, listen: false);
     return ChangeNotifierProvider<EmailSignIn>(
-      create: (_) => EmailSignIn(appUser: appUser),
+      create: (_) => EmailSignIn(),
       child: Consumer<EmailSignIn>(
         builder: (_, model, __) => EmailSignInForm(model: model),
       ),
@@ -56,7 +54,6 @@ class _EmailSignInFormState extends State<EmailSignInForm> {
     try {
       await model!.submit();
       if (model!.submitted) {
-        //Navigator.of(context).pop();
         Navigator.of(context).pushReplacementNamed(TabsScreen.routeName);
       }
     } catch (e) {

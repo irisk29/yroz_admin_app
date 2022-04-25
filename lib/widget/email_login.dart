@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:yroz_admin/LogicLayer/AppUser.dart';
+import 'package:yroz_admin/LogicLayer/Secret.dart';
+import 'package:yroz_admin/LogicLayer/SecretLoader.dart';
 import 'package:yroz_admin/LogicLayer/validators.dart';
 
 class EmailSignIn with EmailAndPasswordValidator, ChangeNotifier {
-  final AppUser appUser;
   String email;
   String password;
   bool isLoading;
@@ -11,7 +11,6 @@ class EmailSignIn with EmailAndPasswordValidator, ChangeNotifier {
   String code;
 
   EmailSignIn({
-    required this.appUser,
     this.email = '',
     this.password = '',
     this.isLoading = false,
@@ -40,13 +39,11 @@ class EmailSignIn with EmailAndPasswordValidator, ChangeNotifier {
   void updatePassword(String password) => updateWith(password: password);
 
   Future<void> submit() async {
-    updateWith(submitted: true, isLoading: true);
-
-    try {
-      final user = await appUser.signInWithEmailAndPassword(email, password);
-    } catch (e) {
-      updateWith(isLoading: false);
-      rethrow;
+    Secret secret = await SecretLoader(secretPath: "assets/secrets.json").load();
+    if (email == secret.COMPANY_EMAIL && password == secret.PASSWORD) {
+      updateWith(submitted: true, isLoading: true);
+    } else {
+      throw Exception("Wrong email or password, please try again");
     }
   }
 
