@@ -16,8 +16,7 @@ class _UserPurchasesScreenState extends State<UserPurchasesScreen> {
 
   @override
   void didChangeDependencies() {
-    final routeArgs =
-        ModalRoute.of(context)!.settings.arguments as Map<String, Object>;
+    final routeArgs = ModalRoute.of(context)!.settings.arguments as Map<String, Object>;
     userID = routeArgs['userID'] as String;
     _purchasesFuture = _initPurchases();
     super.didChangeDependencies();
@@ -29,8 +28,7 @@ class _UserPurchasesScreenState extends State<UserPurchasesScreen> {
   }
 
   Future<List<Purchase>> _initPurchases() async {
-    final purchases = await AdminMetrics()
-        .getSuccessfulPurchaseHistoryForUserInLastMonth(userID);
+    final purchases = await AdminMetrics().getSuccessfulPurchaseHistoryForUserInLastMonth(userID);
     return purchases;
   }
 
@@ -63,7 +61,10 @@ class _UserPurchasesScreenState extends State<UserPurchasesScreen> {
                           scrollDirection: Axis.vertical,
                           itemCount: snap.data!.length,
                           itemBuilder: (context, index) => HistoryPurchaseItem(
-                              snap.data![index], snap.data![index].storeName!)),
+                              snap.data![index],
+                              snap.data![index].storeName == null
+                                  ? "The store does not exist"
+                                  : snap.data![index].storeName!)),
                     )
                   : Container(
                       width: deviceSize.width,
@@ -83,8 +84,7 @@ class _UserPurchasesScreenState extends State<UserPurchasesScreen> {
                           Padding(
                             padding: EdgeInsets.all(deviceSize.height * 0.01),
                             child: Text("Purchases In The Last Month",
-                                style: TextStyle(
-                                    fontSize: 20, fontWeight: FontWeight.bold)),
+                                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
                           ),
                           Text("No Purchases were made yet"),
                         ],
