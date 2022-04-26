@@ -28,7 +28,6 @@ class _UsersScreenState extends State<UsersScreen> {
 
   Future<void> _pullRefresh() async {
     List<User> usersTmp = await AdminMetrics().fetchUsers();
-    changeableUsers.addAll(users);
     setState(() {
       users = usersTmp;
       changeableUsers.clear();
