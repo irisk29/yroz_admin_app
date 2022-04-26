@@ -41,6 +41,7 @@ class _TabsScreenState extends State<TabsScreen> {
               icon: Icon(Icons.logout_rounded))
         ],
       ),
+//      resizeToAvoidBottomInset: false,
       body: _pages[_selectedPageIndex],
       bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
