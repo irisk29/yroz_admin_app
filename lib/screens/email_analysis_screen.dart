@@ -18,10 +18,17 @@ class _EmailAnalysisScreen extends State<EmailAnalysisScreen> {
   late List<_ChartData> data;
   late TooltipBehavior _tooltip;
 
+  GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
+      GlobalKey<RefreshIndicatorState>();
+
   @override
   void initState() {
     _tooltip = TooltipBehavior(enable: true);
     super.initState();
+  }
+
+  Future<void> _pullRefresh() async {
+    setState(() {});
   }
 
   Future<Tuple2<Map<String, double>, List<String>>> getEmailAnalysis() async {
@@ -32,11 +39,15 @@ class _EmailAnalysisScreen extends State<EmailAnalysisScreen> {
 
   Widget _buildRatingsCart(Map<String, double> ratings) {
     List<_ChartData> data = ratings.entries
-        .map((e) => _ChartData(e.key, e.value, Colors.primaries[Random().nextInt(Colors.primaries.length)]))
+        .map((e) => _ChartData(e.key, e.value,
+            Colors.primaries[Random().nextInt(Colors.primaries.length)]))
         .toList();
     return SfCartesianChart(
-        primaryXAxis: CategoryAxis(labelIntersectAction: AxisLabelIntersectAction.multipleRows, maximumLabelWidth: 0.5),
-        primaryYAxis: NumericAxis(minimum: 0, maximum: 5, interval: 1, isVisible: true),
+        primaryXAxis: CategoryAxis(
+            labelIntersectAction: AxisLabelIntersectAction.multipleRows,
+            maximumLabelWidth: 0.5),
+        primaryYAxis:
+            NumericAxis(minimum: 0, maximum: 5, interval: 1, isVisible: true),
         tooltipBehavior: _tooltip,
         series: <ChartSeries<_ChartData, String>>[
           ColumnSeries<_ChartData, String>(
@@ -75,7 +86,8 @@ class _EmailAnalysisScreen extends State<EmailAnalysisScreen> {
       appBar: AppBar(
         leading: IconButton(
           icon: Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () => Navigator.of(context).pushReplacementNamed(TabsScreen.routeName),
+          onPressed: () =>
+              Navigator.of(context).pushReplacementNamed(TabsScreen.routeName),
         ),
         toolbarHeight: deviceSize.height * 0.1,
         title: Align(
@@ -90,26 +102,38 @@ class _EmailAnalysisScreen extends State<EmailAnalysisScreen> {
       ),
       body: FutureBuilder(
         future: getEmailAnalysis(),
-        builder: (BuildContext context, AsyncSnapshot<Tuple2<Map<String, double>, List<String>>> snap) {
+        builder: (BuildContext context,
+            AsyncSnapshot<Tuple2<Map<String, double>, List<String>>> snap) {
           return snap.connectionState != ConnectionState.done
               ? Center(child: CircularProgressIndicator())
-              : Column(
-                  children: [
-                    SizedBox(height: MediaQuery.of(context).size.height * 0.05),
-                    snap.data != null && snap.data!.item1.length > 0
-                        ? _buildRatingsCart(snap.data!.item1)
-                        : Text("No ratings were sent yet"),
-                    SizedBox(height: MediaQuery.of(context).size.height * 0.05),
-                    Text(
-                      "Feedback From Users:",
-                      textAlign: TextAlign.start,
-                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              : RefreshIndicator(
+                  key: _refreshIndicatorKey,
+                  onRefresh: _pullRefresh,
+                  child: SingleChildScrollView(
+                    physics: AlwaysScrollableScrollPhysics(),
+                    child: Column(
+                      children: [
+                        SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.05),
+                        snap.data != null && snap.data!.item1.length > 0
+                            ? _buildRatingsCart(snap.data!.item1)
+                            : Text("No ratings were sent yet"),
+                        SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.05),
+                        Text(
+                          "Feedback From Users:",
+                          textAlign: TextAlign.start,
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold),
+                        ),
+                        SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.03),
+                        snap.data != null && snap.data!.item2.length > 0
+                            ? _buildFeedBackList(snap.data!.item2)
+                            : Text("No feedbacks were sent yet")
+                      ],
                     ),
-                    SizedBox(height: MediaQuery.of(context).size.height * 0.03),
-                    snap.data != null && snap.data!.item2.length > 0
-                        ? _buildFeedBackList(snap.data!.item2)
-                        : Text("No feedbacks were sent yet")
-                  ],
+                  ),
                 );
         },
       ),
