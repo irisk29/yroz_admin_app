@@ -18,10 +18,17 @@ class _GlobalScreenState extends State<GlobalScreen> {
   double profit = 0.0;
   Map<String, double> dataMap = {};
 
+  late Future<void> _future;
   GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
-      GlobalKey<RefreshIndicatorState>();
+  GlobalKey<RefreshIndicatorState>();
 
-  Future<double> getCompanyProfit() async {
+  @override
+  void initState() {
+    super.initState();
+    _future = getCompanyProfit();
+  }
+
+  Future<void> getCompanyProfit() async {
     registeredUsers = Admin().getRegisteredUsersAmount();
     physicalStores = Admin().getsAmountOfPhysicalStores();
     onlineStores = Admin().getsAmountOfOnlineStores();
@@ -33,20 +40,23 @@ class _GlobalScreenState extends State<GlobalScreen> {
 
     DateTime now = DateTime.now();
     DateTime monthAgo = DateTime(now.year, now.month - 1, now.day);
-    double res = await Admin().getCompanyProfit(monthAgo, now);
-    FLog.info(text: res.toString());
-    return res;
+    profit = await Admin().getCompanyProfit(monthAgo, now);
+    FLog.info(text: profit.toString());
   }
 
   Future<void> _pullRefresh() async {
+    DateTime now = DateTime.now();
+    DateTime monthAgo = DateTime(now.year, now.month - 1, now.day);
+    double profitTmp = await Admin().getCompanyProfit(monthAgo, now);
     setState(() {
-//      registeredUsers = Admin().getRegisteredUsersAmount();
-//      physicalStores = Admin().getsAmountOfPhysicalStores();
-//      onlineStores = Admin().getsAmountOfOnlineStores();
-//      dataMap = {
-//        "online stores": onlineStores.toDouble(),
-//        "physical stores": physicalStores.toDouble()
-//      };
+      registeredUsers = Admin().getRegisteredUsersAmount();
+      physicalStores = Admin().getsAmountOfPhysicalStores();
+      onlineStores = Admin().getsAmountOfOnlineStores();
+      dataMap = {
+        "online stores": onlineStores.toDouble(),
+        "physical stores": physicalStores.toDouble()
+      };
+      profit = profitTmp;
     });
   }
 
@@ -63,8 +73,8 @@ class _GlobalScreenState extends State<GlobalScreen> {
       ]
     ];
     return FutureBuilder(
-      future: getCompanyProfit(),
-      builder: (BuildContext context, AsyncSnapshot<double> snap) => snap
+      future: _future,
+      builder: (BuildContext context, AsyncSnapshot snap) => snap
                   .connectionState !=
               ConnectionState.done
           ? Center(child: CircularProgressIndicator())
@@ -124,7 +134,7 @@ class _GlobalScreenState extends State<GlobalScreen> {
                           height: MediaQuery.of(context).size.height * 0.01),
                       FittedBox(
                           child: Text(
-                              "YROZ Profit: ${snap.data == null ? -1 : snap.data}€",
+                              "YROZ Profit: $profit€",
                               style: DefaultTextStyle.of(context)
                                   .style
                                   .apply(fontSizeFactor: 1.2))),
