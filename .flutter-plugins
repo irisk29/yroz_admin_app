@@ -10,6 +10,7 @@ amplify_storage_s3=D:\\Development\\flutter\\.pub-cache\\hosted\\pub.dartlang.or
 amplify_storage_s3_android=D:\\Development\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\amplify_storage_s3_android-0.4.5\\
 amplify_storage_s3_ios=D:\\Development\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\amplify_storage_s3_ios-0.4.5\\
 flutter_native_splash=D:\\Development\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\flutter_native_splash-2.1.6\\
+integration_test=D:\\Development\\flutter\\packages\\integration_test\\
 path_provider=D:\\Development\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\path_provider-2.0.9\\
 path_provider_android=D:\\Development\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\path_provider_android-2.0.12\\
 path_provider_ios=D:\\Development\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\path_provider_ios-2.0.8\\

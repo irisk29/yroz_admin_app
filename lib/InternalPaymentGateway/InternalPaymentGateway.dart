@@ -89,6 +89,20 @@ class InternalPaymentGateway {
     return new Failure(result.getMessage());
   }
 
+  // params: user id - email
+  // returns: Result with eWalletoken
+  Future<ResultInterface<String>> createUserAccount(String userId) async {
+    var url = Uri.parse('https://' + externalPaymentUrl + '/dev/userAccount');
+    var body = {"userId": userId};
+    var result = await _postRequest(url, body);
+    if (result.getTag()) {
+      String token = result.getValue()["eWalletoken"];
+      return new Ok(result.getMessage(), token);
+    }
+    return new Failure(result.getMessage());
+  }
+
+
   Future<ResultInterface<List<Map<String, Object>>>> getPurchaseHistory(DateTime startDate, DateTime endDate,
       {String userId = "*", String storeId = "*", bool? succeeded}) async {
     final DateFormat formatter = DateFormat('yyyy/MM/dd HH:mm:ss');
